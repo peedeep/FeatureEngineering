@@ -43,7 +43,7 @@ writetable(table([X Y]), 'TrainData.csv')
 
 %% load test data
 test_dir = dir('.\test\*.csv');
-dir_length = length(train_b_dir);
+dir_length = length(test_dir);
 T_X = [];
 
 for i = 1:dir_length

@@ -1,13 +1,7 @@
 clc; clear;
 
-%load('AllData.mat');
-%[c1f, c2f, c3f] = feature_p_values(X((1:230), :), Y((1:230), :));
-
-load('TrainDataA.mat');
-load('TestData.mat');
-[c1f, c2f, c3f] = feature_p_values(A_X, A_Y);
-X = A_X;
-Y = A_Y;
+load('AllData.mat');
+[c1f, c2f, c3f] = feature_p_values(X((1:230), :), Y((1:230), :));
 
 flute1TrainX = X(:, c1f);
 flute2TrainX = X(:, c2f);

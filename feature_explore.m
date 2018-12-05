@@ -13,7 +13,7 @@ function [features] = feature_explore(file_name)
     X_peak = zeros(1, n);
     X_fft_power = zeros(1, n);
     X_fft_mag = zeros(1, n);
-    %X_fft_energy = zeros(1, n);
+    X_fft_energy = zeros(1, n);
     X_wave1 = zeros(1, n);
     X_wave2 = zeros(1, n);
     X_wave3 = zeros(1, n);
@@ -30,7 +30,7 @@ function [features] = feature_explore(file_name)
         X_peak(i) = feature_peak(X);
         X_fft_power(i) = feature_fft_power(X);
         X_fft_mag(i) = feature_fft_mag(X);
-        %X_fft_energy(i) = feature_fft_energy(X);
+        X_fft_energy(i) = feature_fft_energy(X);
         [X_wave1(i), X_wave2(i), X_wave3(i)] = feature_wave(X);
     end
     %fprintf('=================end caculate=================\n');
@@ -53,6 +53,7 @@ function [features] = feature_explore(file_name)
     %disp(X_fft_energy);
     %fprintf('=================features vector=================\n');
     features = [X_mean X_slope X_kurtosis X_rms X_max X_peak X_fft_power X_fft_mag X_wave1 X_wave2 X_wave3];
+    %features = [X_mean X_slope X_kurtosis X_rms X_max X_peak];
     %disp(features);
 
 end

@@ -1,7 +1,7 @@
 clc; clear;
 
 %% Predict Wear Cuts
-P = csvread('result.csv');
+P = csvread('result.csv', 1);
 p1 = P(:,1);
 p2 = P(:,2);
 p3 = P(:,3);

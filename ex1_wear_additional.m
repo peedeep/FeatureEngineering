@@ -5,11 +5,10 @@ clear; close all; clc
 
 fprintf('Loading data ...\n');
 
-toOne = 1;
+toOne = 0;
 load('data.mat');
 
 dataX = [1 2 3];
-pred = zeros(size(flute1TestX, 1), length(dataX));
 p = (1:314);
 
 for f = 1:length(dataX)
@@ -42,20 +41,19 @@ for f = 1:length(dataX)
     num_iters = 61000;
     theta = zeros(n, 1);%9*1
     [theta J_history] = gradientDescentMulti(X, y, theta, alpha, num_iters);
-
+   
     %figure;
     %plot(1: numel(J_history), J_history, '-b', 'LineWidth', 2);
     %xlabel('Number of iterations');
     %ylabel('Cost J');
     %initial_wear = [62 9 14];
-    initial_wear = [60 55 50];
-    for i = 1:size(T_X, 1)
-        if toOne == 1
-           pred(i, f) = [1 ((T_X(i,:) - mu) ./ sigma)] * theta + initial_wear(f); 
-        elseif toOne == 0
-           pred(i, f) = [1 T_X(i,:)] * theta + initial_wear(f);
-        end
+    initial_wear = [62 55 50];
+    if toOne == 1
+       pred(:,f) = linearPredictNormalize(T_X, theta, mu, sigma, initial_wear(f)); 
+    elseif toOne == 0
+       pred(:,f) = linearPredict(T_X, theta, initial_wear(f)); 
     end
+    
 end
-pred = [initial_wear; pred];
+
 writetable(table(pred), 'result.csv') ;

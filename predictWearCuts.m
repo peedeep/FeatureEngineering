@@ -5,7 +5,7 @@ P = csvread('result.csv', 1);
 p1 = P(:,1);
 p2 = P(:,2);
 p3 = P(:,3);
-pred_cuts = [];
+pred_cuts = zeros(1, 150);
 for wear = 51:200
     i = wear - 50;
     c1 = find(p1 <= wear);
@@ -15,7 +15,9 @@ for wear = 51:200
     c3 = find(p3 <= wear);
     cut3 = max(c3);
     [a, ~] = max([cut1 cut2 cut3]);
-    pred_cuts(i) = a;
+    if isempty(a) == 0
+        pred_cuts(i) = a;
+    end
 end
 
 pred_cuts = pred_cuts(:);
@@ -29,7 +31,7 @@ R = csvread('c6_wear.csv');
 r1 = R(:,1);
 r2 = R(:,2);
 r3 = R(:,3);
-real_cuts = [];
+real_cuts = zeros(1, 150);
 for wear = 51:200
     i = wear - 50;
     c1 = find(r1 <= wear);
@@ -39,7 +41,9 @@ for wear = 51:200
     c3 = find(r3 <= wear);
     cut3 = max(c3);
     [a, ~] = max([cut1 cut2 cut3]);
-    real_cuts(i) = a;
+    if isempty(a) == 0
+        real_cuts(i) = a;
+    end
 end
 
 real_cuts = real_cuts(:);

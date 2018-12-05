@@ -47,7 +47,8 @@ for f = 1:length(dataX)
     %plot(1: numel(J_history), J_history, '-b', 'LineWidth', 2);
     %xlabel('Number of iterations');
     %ylabel('Cost J');
-    initial_wear = [60 55 45];
+    %initial_wear = [62 9 14];
+    initial_wear = [60 55 50];
     for i = 1:size(T_X, 1)
         if toOne == 1
            pred(i, f) = [1 ((T_X(i,:) - mu) ./ sigma)] * theta + initial_wear(f); 

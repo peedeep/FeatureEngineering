@@ -1,4 +1,4 @@
-clc; clear;
+function [] = predictWearCuts()
 
 %% Predict Wear Cuts
 P = csvread('result.csv', 1);
@@ -6,16 +6,15 @@ p1 = P(:,1);
 p2 = P(:,2);
 p3 = P(:,3);
 pred_cuts = zeros(1, 150);
+
 for wear = 51:200
     i = wear - 50;
-    c1 = find(p1 <= wear);
-    cut1 = max(c1);
-    c2 = find(p2 <= wear);
-    cut2 = max(c2);
-    c3 = find(p3 <= wear);
-    cut3 = max(c3);
-    [a, ~] = max([cut1 cut2 cut3]);
-    if isempty(a) == 0
+    flutes(1) = max(checkElements(find(p1 <= wear)));
+    flutes(2) = max(checkElements(find(p2 <= wear)));
+    flutes(3) = max(checkElements(find(p3 <= wear)));
+    disp(flutes);
+    [a, ~] = max(flutes);
+    if ~isempty(a)
         pred_cuts(i) = a;
     end
 end
@@ -34,14 +33,12 @@ r3 = R(:,3);
 real_cuts = zeros(1, 150);
 for wear = 51:200
     i = wear - 50;
-    c1 = find(r1 <= wear);
-    cut1 = max(c1);
-    c2 = find(r2 <= wear);
-    cut2 = max(c2);
-    c3 = find(r3 <= wear);
-    cut3 = max(c3);
-    [a, ~] = max([cut1 cut2 cut3]);
-    if isempty(a) == 0
+    flutes(1) = max(checkElements(find(r1 <= wear)));
+    flutes(2) = max(checkElements(find(r2 <= wear)));
+    flutes(3) = max(checkElements(find(r3 <= wear)));
+    %disp(flutes);
+    [a, ~] = max(flutes);
+    if ~isempty(a)
         real_cuts(i) = a;
     end
 end
@@ -56,7 +53,7 @@ cuts = [pred_cuts real_cuts];
 
 %% caculate score
 d = pred_cuts - real_cuts;
-disp(d);
+%disp(d);
 n = length(d);
 s = zeros(n, 1);
 for i = 1:n
@@ -69,3 +66,10 @@ end
 
 disp(sum(s));
 
+%% caculate accuracy
+m = size(P, 1);
+fprintf('\n flute1 Test set 均方误差（MSE）: %f', sum((p1 - r1).^2) / m);
+fprintf('\n flute2 Test set 均方误差（MSE）: %f', sum((p2 - r2).^2) / m);
+fprintf('\n flute3 Test set 均方误差（MSE）: %f\n', sum((p3 - r3).^2) / m);
+
+end

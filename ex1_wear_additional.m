@@ -10,6 +10,7 @@ load('data.mat');
 
 dataX = [1 2 3];
 p = (1:314);
+Y = Y(p, :);
 
 for f = 1:length(dataX)
     %X = dataX(f);%630*8
@@ -56,4 +57,10 @@ for f = 1:length(dataX)
     
 end
 
+fprintf('\n flute1 Train set 均方误差（MSE）: %f', sum((pred((2:end), 1) - Y(:,1)).^2) / m);
+fprintf('\n flute2 Train set 均方误差（MSE）: %f', sum((pred((2:end), 2) - Y(:,2)).^2) / m);
+fprintf('\n flute3 Train set 均方误差（MSE）: %f\n', sum((pred((2:end), 3) - Y(:,3)).^2) / m);
+
 writetable(table(pred), 'result.csv') ;
+
+predictWearCuts

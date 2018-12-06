@@ -2,7 +2,7 @@ clc; clear;
 
 load('AllData.mat');
 
-isAdditional = true;
+isAdditional = false;
 
 if isAdditional
     

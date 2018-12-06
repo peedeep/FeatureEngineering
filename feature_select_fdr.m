@@ -22,9 +22,7 @@ if isAdditional
     
 else
     
-    [c1f, c2f, c3f] = featureFDR(A_X, A_Y);
-    X = A_X;
-    Y = A_Y;
+    [c1f, c2f, c3f] = featureFDR(X, Y);
 
     flute1TrainX = X(:, c1f);
     flute2TrainX = X(:, c2f);

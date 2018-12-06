@@ -7,14 +7,14 @@ fprintf('Loading data ...\n');
 
 load('selectedData.mat');
 
-p = (1:314);%选择训练样本数量
+p = (1:600);%选择训练样本数量
 Y = Y(p, :);
 m = size(Y, 1);%训练样本个数
 flute_size = size(Y, 2);%刀片数量
 pred = zeros(size(T_X, 1), flute_size);
 
 %% ================ 2.Gradient Descent Train ================
-for f = 1:flute_size
+for f = 1:1
     if f == 1
         X = flute1TrainX(p,:);
         T_X = flute1TestX;
@@ -30,31 +30,28 @@ for f = 1:flute_size
     y = Y(:,f);
     
     %% nn train
-    [p1, minp, maxp, t1, mint, maxt] = premnmx(X, y);
-    net = newff(p1, t1, [5], {'tansig','tansig','purelin'}, 'trainlm');
-    net.trainParam.epochs = 50000;
-    net.trainParam.goal = 0.0000001;
-    [net, tr] = train(net, p1, t1);
-
-    if isAdditional
-        initial_wear = [62 55 50];
-    else
-        initial_wear = [-1 -1 -1];
-    end
+    %[inputn, inputps] = mapminmax(X);
+    %[outputn, outputps] = mapminmax(y);
+    %net = newff(inputn, outputn, [size(X, 2) 5 1],  {'tansig','tansig','purelin'}, 'trainlm');
+    net = newff(inputn, outputn);
+    net.trainParam.epochs = 500;
+    net.trainParam.lr = 0.1;
+    net.trainParam.goal = 0.00004;
     
-    a = premnmx(T_X(1,:));
-    b = sim(net, a);
-    c = postmnmx(b, mint, maxt);
+    net = train(net, inputn, outputn);
     
-    pred(:, f) = c; 
+    inputn_test = mapminmax('apply', T_X, inputps);
+    an = sim(net, inputn_test);
+    BPoutput = mapminmax('reverse', an, outputps);
+    %pred(:, f) = BPoutput; 
     
     %% 测试数据均方误差（MSE）
-    train_y = sim(net, p1);
-    train_y_value = postmnmx(train_y, mint, maxt);
+    %train_y = sim(net, inputn);
+    %train_y_value = postmnmx('reverse', train_y, outputps);
     if isAdditional
         %fprintf('flute1 Train set 均方误差（MSE）: %f\n', sum((train_y_value - Y(:,1)).^2) / m);
     else
-        fprintf('flute1 Train set 均方误差（MSE）: %f\n', sum((train_y_value - Y(:,1)).^2) / m);
+        %fprintf('flute1 Train set 均方误差（MSE）: %f\n', sum((train_y_value - Y(:,1)).^2) / m);
     end
     
 end

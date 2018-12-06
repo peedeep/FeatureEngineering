@@ -1,7 +1,8 @@
-function [] = predictWearCuts()
+%function [] = predictWearCuts()
 
 %% Predict Wear Cuts
 P = csvread('result.csv', 1);
+plot(P);
 p1 = P(:,1);
 p2 = P(:,2);
 p3 = P(:,3);
@@ -27,6 +28,8 @@ fclose(fid);  %关闭文件；
 
 %% Real Wear Cuts
 R = csvread('c6_wear.csv');
+hold on;
+plot(R);
 r1 = R(:,1);
 r2 = R(:,2);
 r3 = R(:,3);
@@ -72,4 +75,4 @@ fprintf('\n flute1 Test set 均方误差（MSE）: %f', sum((p1 - r1).^2) / m);
 fprintf('\n flute2 Test set 均方误差（MSE）: %f', sum((p2 - r2).^2) / m);
 fprintf('\n flute3 Test set 均方误差（MSE）: %f\n', sum((p3 - r3).^2) / m);
 
-end
+%end

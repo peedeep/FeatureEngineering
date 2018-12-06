@@ -32,8 +32,10 @@ for f = 1:flute_size
     %% nn train
     [inputn, inputps] = mapminmax(X');
     [outputn, outputps] = mapminmax(y');
-    net = newff(inputn, outputn, 20,  {'logsig', 'purelin'});
-    
+    net = newff(inputn, outputn, 6,  {'logsig', 'purelin'});
+    net.trainParam.epochs = 2000;
+    net.trainParam.lr = 0.1;
+    net.trainParam.goal = 0.00004;
     net = train(net, inputn, outputn);
     
     inputn_test = mapminmax('apply', T_X', inputps);

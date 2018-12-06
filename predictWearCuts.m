@@ -2,7 +2,7 @@
 
 %% Predict Wear Cuts
 P = csvread('result.csv', 1);
-plot(P);
+%plot(P);
 p1 = P(:,1);
 p2 = P(:,2);
 p3 = P(:,3);
@@ -28,8 +28,8 @@ fclose(fid);  %¹Ø±ÕÎÄ¼þ£»
 
 %% Real Wear Cuts
 R = csvread('test.csv');
-hold on;
-plot(R);
+%hold on;
+%plot(R);
 r1 = R(:,1);
 r2 = R(:,2);
 r3 = R(:,3);

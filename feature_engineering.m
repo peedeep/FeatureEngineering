@@ -8,7 +8,7 @@ A_X = [];
 for i = 1:dir_length
     file_name = ['.\train_a\Train_A\', train_a_dir(i).name];
     disp(file_name);
-    A_X(i,:) = feature_explore(file_name);
+    A_X(i,:) = featureExplore(file_name);
 end
 
 A_Y = csvread('.\train_a\Train_A_wear.csv', 1);
@@ -25,7 +25,7 @@ B_X = [];
 for i = 1:dir_length
     file_name = ['.\train_b\Train_B\', train_b_dir(i).name];
     disp(file_name);
-    B_X(i,:) = feature_explore(file_name);
+    B_X(i,:) = featureExplore(file_name);
 end
 
 B_Y = csvread('.\train_b\Train_B_wear.csv', 1);
@@ -49,7 +49,7 @@ T_X = [];
 for i = 1:dir_length
     file_name = ['.\test\', test_dir(i).name];
     disp(file_name);
-    T_X(i,:) = feature_explore(file_name);
+    T_X(i,:) = featureExplore(file_name);
 end
 
 %save('TestData');

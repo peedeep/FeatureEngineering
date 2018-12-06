@@ -1,7 +1,7 @@
 %feature_names = ['fx', 'fy', 'fz', 'vx', 'vy', 'vz', 'ae'];
 %feature_explore = ['mean', 'slope', 'kurtosis', 'rms', 'max', 'peak', 'X_fft_power', 'X_fft_mag', 'X_fft_energy'];
 
-function [features] = feature_explore(file_name)
+function [features] = featureExplore(file_name)
     %feature_explore_names = ['mean', 'slope', 'kurtosis', 'rms', 'max', 'peak', 'X_fft_power', 'X_fft_mag'];
     A = csvread(file_name);
     n = size(A, 2);

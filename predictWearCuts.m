@@ -12,7 +12,7 @@ for wear = 51:200
     flutes(1) = max(checkElements(find(p1 <= wear)));
     flutes(2) = max(checkElements(find(p2 <= wear)));
     flutes(3) = max(checkElements(find(p3 <= wear)));
-    disp(flutes);
+    %disp(flutes);
     [a, ~] = max(flutes);
     if ~isempty(a)
         pred_cuts(i) = a;
@@ -45,9 +45,9 @@ end
 
 real_cuts = real_cuts(:);
 %save result.txt cuts var -ascii;
-fid=fopen('real.txt','wt'); %写的方式打开文件（若不存在，建立文件）；
-fprintf(fid,'%d\n', real_cuts);  % %d 表示以整数形式写入数据，这正是我想要的；
-fclose(fid);  %关闭文件；
+fid=fopen('real.txt','wt');
+fprintf(fid,'%d\n', real_cuts); 
+fclose(fid);
 
 cuts = [pred_cuts real_cuts];
 

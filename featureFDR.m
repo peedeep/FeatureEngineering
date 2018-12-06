@@ -1,4 +1,4 @@
-function [c1_features, c2_features, c3_features] = feature_p_values(X, Y)
+function [c1_features, c2_features, c3_features] = featureFDR(X, Y)
 
 m = size(X, 1);
 n = size(X, 2);
@@ -23,7 +23,7 @@ for c = 1:num_c
         p_len = length(p_val);
         p_val = [p_val (1:p_len)'];
 
-        [~, k, no_zero_indexs] = min_u_values(p_val);
+        [~, k, no_zero_indexs] = findFDRValues(p_val);
         if k - 1 > 0
             index_features = no_zero_indexs';
         end

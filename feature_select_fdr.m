@@ -10,7 +10,7 @@ if isAdditional
     [X_Addi_B, Y_Addi_B] = getAdditionalWear(B_X, B_Y);
     X = [X_Addi_A; X_Addi_B];
     Y = [Y_Addi_A; Y_Addi_B];
-    [c1f, c2f, c3f] = feature_p_values(X, Y);
+    [c1f, c2f, c3f] = featureFDR(X, Y);
 
     flute1TrainX = X(:, c1f);
     flute2TrainX = X(:, c2f);
@@ -22,7 +22,7 @@ if isAdditional
     
 else
     
-    [c1f, c2f, c3f] = feature_p_values(A_X, A_Y);
+    [c1f, c2f, c3f] = featureFDR(A_X, A_Y);
     X = A_X;
     Y = A_Y;
 

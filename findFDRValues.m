@@ -1,4 +1,4 @@
-function [u, k, no_zero_indexs] = min_u_values (p_val)
+function [u, k, no_zero_indexs] = findFDRValues (p_val)
 
 p_sort = sortrows(p_val);
 d = size(p_sort, 1);

@@ -27,7 +27,7 @@ fprintf(fid,'%d\n', pred_cuts);  % %d 表示以整数形式写入数据，这正是我想要的；
 fclose(fid);  %关闭文件；
 
 %% Real Wear Cuts
-R = csvread('c6_wear.csv');
+R = csvread('test.csv');
 hold on;
 plot(R);
 r1 = R(:,1);

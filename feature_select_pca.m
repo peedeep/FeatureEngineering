@@ -40,3 +40,5 @@ writetable(table(flute2TestX), 'TestFlute2.csv') ;
 writetable(table(flute3TestX), 'TestFlute3.csv') ; 
 
 save('selectedData');
+
+ex2_train_nn

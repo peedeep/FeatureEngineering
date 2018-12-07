@@ -25,7 +25,6 @@ for f = 1:flute_size
         X = flute3TrainX(p,:);
         T_X = flute3TestX;
     end
-    disp(f)
     
     y = Y(:,f);
     
@@ -52,9 +51,9 @@ for f = 1:flute_size
     train_y = sim(net, p1);
     train_y_value = postmnmx(train_y, mint, maxt);
     if isAdditional
-        %fprintf('flute1 Train set 均方误差（MSE）: %f\n', sum((train_y_value - Y(:,1)).^2) / m);
+        fprintf('flute%d Train set 均方误差（MSE）: %f\n', f, sum((train_y_value - Y(:,1)).^2) / m);
     else
-        fprintf('flute1 Train set 均方误差（MSE）: %f\n', sum((train_y_value - Y(:,1)).^2) / m);
+        fprintf('flute%d Train set 均方误差（MSE）: %f\n', f, sum((train_y_value - Y(:,1)).^2) / m);
     end
     
 end
@@ -63,3 +62,5 @@ writetable(table(pred), 'result.csv') ;
 
 %% check
 predictWearCuts
+
+save('Predict');

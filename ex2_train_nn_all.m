@@ -3,15 +3,16 @@
 %% ================ 1.Feature Normalization ================
 clear; close all; clc
 
-fprintf('Loading data ...\n');
-
 load('selectedData.mat');
 
-p = (1:314);%选择训练样本数量
+p = (1:315);%选择训练样本数量
 Y = Y(p, :);
 m = size(Y, 1);%训练样本个数
 flute_size = size(Y, 2);%刀片数量
-pred = zeros(size(T_X, 1), flute_size);
+T_B_X = flute1TrainX(316:630, :);%测试样本1
+
+pred_train = zeros(size(T_B_X, 1), flute_size);%测试样本1预测结果
+pred_test = zeros(size(T_X, 1), flute_size);%测试样本2预测结果
 
 %% ================ 2.Gradient Descent Train ================
 for f = 1:flute_size
@@ -25,7 +26,7 @@ for f = 1:flute_size
         X = flute3TrainX(p,:);
         T_X = flute3TestX;
     end
-    disp(f)
+    fprintf('第%d把刀\t', f);
     
     y = Y(:,f);
     
@@ -33,15 +34,38 @@ for f = 1:flute_size
     [inputn, inputps] = mapminmax(X');
     [outputn, outputps] = mapminmax(y');
     net = newff(inputn, outputn, 6,  {'logsig', 'purelin'});
-    net.trainParam.epochs = 2000;
-    net.trainParam.lr = 0.1;
+    net.trainParam.epochs = 1000;
+    net.trainParam.lr = 0.01;
     net.trainParam.goal = 0.00004;
     net = train(net, inputn, outputn);
     
-    inputn_test = mapminmax('apply', T_X', inputps);
+    %% for train data predict
+    inputn_test = mapminmax('apply', T_B_X', inputps);
     an = sim(net, inputn_test);
     BPoutput = mapminmax('reverse', an', outputps);
     %pred(:, f) = BPoutput; 
+    
+    %initial_wear = [62 55 50];
+    initial_wear = [62.7 9.89 14.6];
+    if isAdditional
+        pred_train(:, f) = nnPredict(BPoutput, initial_wear(f));
+    else
+        pred_train(:, f) = BPoutput;
+    end
+
+    %% for test data predict
+    inputn_test = mapminmax('apply', T_X', inputps);
+    an = sim(net, inputn_test);
+    BPoutput = mapminmax('reverse', an', outputps);
+    %pred(:, f) = BPoutput;
+        
+    %initial_wear = [62 55 50];
+    initial_wear = [62.7 9.89 14.6];
+    if isAdditional
+        pred_test(:, f) = nnPredict(BPoutput, initial_wear(f));
+    else
+        pred_test(:, f) = BPoutput;
+    end
     
     %% 测试数据均方误差（MSE）
     train_y = sim(net, inputn);
@@ -49,29 +73,19 @@ for f = 1:flute_size
     
     if f == 1
        net1 = net;
-       save net1 net1 inputps outputps;
+       inputps1 = inputps;
+       outputps1 = outputps;
+       save net1 net1 inputps1 outputps1;
     elseif f == 2
        net2 = net;
-       save net2 net2 inputps outputps;
+       inputps2 = inputps;
+       outputps2 = outputps;
+       save net2 net2 inputps2 outputps2;
     elseif f == 3
        net3 = net;
-       save net3 net3 inputps outputps;
-    end
-    
-    %net = newff(X', y', [9], {'logsig', 'purelin'});
-    %net.trainParam.epochs = 1000;
-    %net.trainParam.lr = 0.1;
-    %net.trainParam.goal = 0.00004;
-    %net = train(net, X', y');
-    %an = sim(net, T_X');
-    %pred(:, f) = an';
-    
-    %initial_wear = [62 55 50];
-    initial_wear = [62.7 9.89 14.6];
-    if isAdditional
-        pred(:, f) = nnPredict(BPoutput, initial_wear(f));
-    else
-        pred(:, f) = BPoutput;
+       inputps3 = inputps;
+       outputps3 = outputps;
+       save net3 net3 inputps3 outputps3;
     end
     
     if isAdditional
@@ -82,8 +96,11 @@ for f = 1:flute_size
     
 end
 
-writetable(table(pred), 'result.csv') ;
+writetable(table(pred_train), 'train_result.csv') ;
+writetable(table(pred_test), 'test_result.csv') ;
 %plot(train_y_value);
 
 %% check
-predictWearCuts
+predictWearAllCuts
+
+save('AllPredict');

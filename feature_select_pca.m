@@ -41,4 +41,5 @@ writetable(table(flute3TestX), 'TestFlute3.csv') ;
 
 save('selectedData');
 
-ex2_train_nn
+%ex2_nn_net_predict;
+ex2_train_nn_all;

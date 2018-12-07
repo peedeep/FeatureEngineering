@@ -1,6 +1,6 @@
 punishment = 10^15;
 time = 1;
-while punishment1 > 1600
+while punishment > 1000
     feature_select_pca; 
 end
 

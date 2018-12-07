@@ -49,13 +49,13 @@ for f = 1:flute_size
     
     if f == 1
        net1 = net;
-       save net1;
+       save net1 net1;
     elseif f == 2
        net2 = net;
-       save net2;
+       save net2 net2;
     elseif f == 3
        net3 = net;
-       save net3;
+       save net3 net3;
     end
     
     %net = newff(X', y', [9], {'logsig', 'purelin'});

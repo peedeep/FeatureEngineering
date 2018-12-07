@@ -32,7 +32,7 @@ for f = 1:flute_size
     %% nn train
     [inputn, inputps] = mapminmax(X');
     [outputn, outputps] = mapminmax(y');
-    net = newff(inputn, outputn, 6,  {'logsig', 'purelin'});
+    net( = newff(inputn, outputn, 6,  {'logsig', 'purelin'});
     net.trainParam.epochs = 2000;
     net.trainParam.lr = 0.1;
     net.trainParam.goal = 0.00004;
@@ -46,17 +46,6 @@ for f = 1:flute_size
     %% 测试数据均方误差（MSE）
     train_y = sim(net, inputn);
     train_y_value(:, f) = mapminmax('reverse', train_y', outputps);
-    
-    if f == 1
-       net1 = net;
-       save net1;
-    elseif f == 2
-       net2 = net;
-       save net2;
-    elseif f == 3
-       net3 = net;
-       save net3;
-    end
     
     %net = newff(X', y', [9], {'logsig', 'purelin'});
     %net.trainParam.epochs = 1000;

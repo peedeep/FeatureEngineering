@@ -67,7 +67,8 @@ for i = 1:n
    end
 end 
 
-disp(sum(s));
+punishment = sum(s);
+disp(punishment);
 
 %% caculate accuracy
 m = size(P, 1);

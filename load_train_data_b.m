@@ -14,5 +14,5 @@ end
 B_Y = csvread('.\train_b\Train_B_wear.csv', 1);
 B_Y = B_Y(:, 2:end);
 
-writetable(table([B_X B_Y]), 'TrainDataB.csv')
+writetable(table([B_X B_Y]), './data/TrainDataB.csv')
 save('TrainDataB');

@@ -14,7 +14,7 @@ end
 A_Y = csvread('.\train_a\Train_A_wear.csv', 1);
 A_Y = A_Y(:, 2:end);
 
-writetable(table([A_X A_Y]), 'TrainDataA.csv')
+writetable(table([A_X A_Y]), './data/TrainDataA.csv')
 %save('TrainDataA');
 
 %% load train data b
@@ -31,7 +31,7 @@ end
 B_Y = csvread('.\train_b\Train_B_wear.csv', 1);
 B_Y = B_Y(:, 2:end);
 
-writetable(table([B_X B_Y]), 'TrainDataB.csv')
+writetable(table([B_X B_Y]), './data/TrainDataB.csv')
 %save('TrainDataB');
 
 %% load train data a&b
@@ -39,7 +39,7 @@ X = [A_X; B_X];
 Y = [A_Y; B_Y];
 
 %save('TrainData');
-writetable(table([X Y]), 'TrainData.csv')
+writetable(table([X Y]), './data/TrainData.csv')
 
 %% load test data
 test_dir = dir('.\test\*.csv');
@@ -53,6 +53,6 @@ for i = 1:dir_length
 end
 
 %save('TestData');
-writetable(table(T_X), 'TestData.csv')
+writetable(table(T_X), './data/TestData.csv')
 
 save('AllData');

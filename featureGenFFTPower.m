@@ -1,4 +1,4 @@
-function [pow] = feature_fft_power(X)
+function [pow] = featureGenFFTPower(X)
 
 Fs = 50;
 N = length(X);

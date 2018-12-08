@@ -67,6 +67,6 @@ for f = 1:length(dataX)
     
 end
 
-writetable(table(pred), 'result.csv') ;
+writetable(table(pred), './data/result.csv') ;
 
 predictWearCuts

@@ -80,8 +80,8 @@ for f = 1:flute_size
     
 end
 
-writetable(table(pred_train), 'train_result.csv') ;
-writetable(table(pred_test), 'test_result.csv') ;
+writetable(table(pred_train), './data/train_result.csv') ;
+writetable(table(pred_test), './data/test_result.csv') ;
 
 %% check
 predictWearAllCuts

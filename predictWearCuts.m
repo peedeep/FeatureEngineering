@@ -1,7 +1,7 @@
 %function [] = predictWearCuts()
 
 %% Predict Wear Cuts
-P = csvread('result.csv', 1);
+P = csvread('./data/result.csv', 1);
 plot(P);
 p1 = P(:,1);
 p2 = P(:,2);
@@ -22,12 +22,12 @@ end
 
 pred_cuts = pred_cuts(:);
 %save result.txt cuts var -ascii;
-fid=fopen('result.txt','wt'); %写的方式打开文件（若不存在，建立文件）；
+fid=fopen('./data/result.txt','wt'); %写的方式打开文件（若不存在，建立文件）；
 fprintf(fid,'%d\n', pred_cuts);  % %d 表示以整数形式写入数据，这正是我想要的；
 fclose(fid);  %关闭文件；
 
 %% Real Wear Cuts
-R = csvread('test.csv');
+R = csvread('./data/test.csv');
 hold on;
 plot(R);
 r1 = R(:,1);
@@ -48,7 +48,7 @@ end
 
 real_cuts = real_cuts(:);
 %save result.txt cuts var -ascii;
-fid=fopen('real.txt','wt');
+fid=fopen('./data/real.txt','wt');
 fprintf(fid,'%d\n', real_cuts); 
 fclose(fid);
 

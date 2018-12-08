@@ -22,16 +22,16 @@ function [features] = featureExplore(file_name)
     %fprintf('=================start caculate=================\n');
     for i = 1:n
         X = A(:, i);
-        X_mean(i) = feature_mean(X);
-        X_slope(i) = feature_slope(X);
-        X_kurtosis(i) = feature_kurtosis(X);
-        X_rms(i) = feature_rms(X);
-        X_max(i) = feature_max(X);
-        X_peak(i) = feature_peak(X);
-        X_fft_power(i) = feature_fft_power(X);
-        X_fft_mag(i) = feature_fft_mag(X);
-        X_fft_energy(i) = feature_fft_energy(X);
-        [X_wave1(i), X_wave2(i), X_wave3(i)] = feature_wave(X);
+        X_mean(i) = featureGenMean(X);
+        X_slope(i) = featureGenSlope(X);
+        X_kurtosis(i) = featureGenKurtosis(X);
+        X_rms(i) = featureGenRms(X);
+        X_max(i) = featureGenMax(X);
+        X_peak(i) = featureGenPeak(X);
+        X_fft_power(i) = featureGenFFTPower(X);
+        X_fft_mag(i) = featureGenFFTMag(X);
+        X_fft_energy(i) = featureGenFFTEnergy(X);
+        [X_wave1(i), X_wave2(i), X_wave3(i)] = featureGenWave(X);
     end
     %fprintf('=================end caculate=================\n');
     %disp(X_mean);

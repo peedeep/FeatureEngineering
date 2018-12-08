@@ -1,6 +1,14 @@
 clc; clear;
 
-load('AllData.mat');
+A = csvread('./filter/TrainDataA2.csv', 1);
+A_X = A(:,1:end-3);
+A_Y = A(:, end-2:end);
+B = csvread('./filter/TrainDataB2.csv', 1);
+B_X = B(:,1:end-3);
+B_Y = B(:,end-2: end);
+T_X = csvread('./filter/TestData2.csv', 1);
+X = [A_X; B_X];
+Y = [A_Y; B_Y];
 
 isAdditional = false;
 
@@ -10,7 +18,7 @@ if isAdditional
     [X_Addi_B, Y_Addi_B] = getAdditionalWear(B_X, B_Y);
     X = [X_Addi_A; X_Addi_B];
     Y = [Y_Addi_A; Y_Addi_B];
-    [c1f, c2f, c3f] = featureFixed(X, Y);
+    [c1f, c2f, c3f] = featureFDR(X, Y);
 
     flute1TrainX = X(:, c1f);
     flute2TrainX = X(:, c2f);
@@ -22,7 +30,7 @@ if isAdditional
     
 else
     
-    [c1f, c2f, c3f] = featureFixed(X, Y);
+    [c1f, c2f, c3f] = featureFDR(X, Y);
 
     flute1TrainX = X(:, c1f);
     flute2TrainX = X(:, c2f);

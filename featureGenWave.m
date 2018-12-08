@@ -1,4 +1,4 @@
-function [E_1, E_2, E_3] = feature_wave(X)
+function [E_1, E_2, E_3] = featureGenWave(X)
 
 n = length(X);
 

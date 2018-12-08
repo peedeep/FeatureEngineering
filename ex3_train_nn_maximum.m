@@ -5,29 +5,25 @@ clear; close all; clc
 
 load('selectedData.mat');
 
-p = (1:315);%选择训练样本数量
+if isAdditional
+    testTrainDataX = flutesTrainX(315:628, :);
+    p = (1:314);%选择训练样本数量
+else
+    testTrainDataX = flutesTrainX(316:630, :);
+    p = (1:315);%选择训练样本数量
+end
+
+X = flutesTrainX(p,:);
 Y = Y(p, :);
 m = size(Y, 1);%训练样本个数
 flute_size = size(Y, 2);%刀片数量
-T_B_X = flute1TrainX(316:630, :);%测试样本1
 
-pred_train = zeros(size(T_B_X, 1), flute_size);%测试样本1预测结果
-pred_test = zeros(size(T_X, 1), flute_size);%测试样本2预测结果
+pred_train = zeros(315, flute_size);%测试样本1预测结果
+pred_test = zeros(315, flute_size);%测试样本2预测结果
 
 %% ================ 2.Gradient Descent Train ================
 for f = 1:flute_size
-    if f == 1
-        X = flute1TrainX(p,:);
-        T_X = flute1TestX;
-    elseif f == 2
-        X = flute2TrainX(p,:);
-        T_X = flute2TestX;
-    elseif f == 3
-        X = flute3TrainX(p,:);
-        T_X = flute3TestX;
-    end
-    fprintf('第%d把刀\t', f);
-    
+
     y = Y(:,f);
     
     %% nn train
@@ -40,13 +36,13 @@ for f = 1:flute_size
     net = train(net, inputn, outputn);
     
     %% for train data predict
-    inputn_test = mapminmax('apply', T_B_X', inputps);
+    inputn_test = mapminmax('apply', testTrainDataX', inputps);
     an = sim(net, inputn_test);
     BPoutput = mapminmax('reverse', an', outputps);
     %pred(:, f) = BPoutput; 
     
     %initial_wear = [62 55 50];
-    initial_wear = [62.7 9.89 14.6];
+    initial_wear = [48.9 9.89 14.6];
     if isAdditional
         pred_train(:, f) = nnPredict(BPoutput, initial_wear(f));
     else
@@ -54,7 +50,7 @@ for f = 1:flute_size
     end
 
     %% for test data predict
-    inputn_test = mapminmax('apply', T_X', inputps);
+    inputn_test = mapminmax('apply', flutesTestX', inputps);
     an = sim(net, inputn_test);
     BPoutput = mapminmax('reverse', an', outputps);
     %pred(:, f) = BPoutput;

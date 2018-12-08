@@ -1,6 +1,14 @@
 clc; clear;
 
-load('AllData.mat');
+A = csvread('./filter/TrainDataA1.csv', 1);
+A_X = A(:,1:end-3);
+A_Y = A(:, end-2:end);
+B = csvread('./filter/TrainDataB1.csv', 1);
+B_X = B(:,1:end-3);
+B_Y = B(:,end-2: end);
+T_X = csvread('./filter/TestData1.csv', 1);
+X = [A_X; B_X];
+Y = [A_Y; B_Y];
 
 isAdditional = false;
 

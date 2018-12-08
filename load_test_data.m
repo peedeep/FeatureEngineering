@@ -12,4 +12,4 @@ for i = 1:dir_length
 end
 
 save('TestData');
-writetable(table(T_X), 'TestData.csv')
+writetable(table(T_X), './data/TestData.csv')

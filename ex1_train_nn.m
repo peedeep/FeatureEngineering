@@ -58,7 +58,7 @@ for f = 1:flute_size
     
 end
 
-writetable(table(pred), 'result.csv') ;
+writetable(table(pred), './data/result.csv') ;
 
 %% check
 predictWearCuts
